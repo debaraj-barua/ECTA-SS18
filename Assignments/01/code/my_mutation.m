@@ -27,6 +27,19 @@ function children  = my_mutation(children, p)
 children = children; 
 
 %% POINT MUTATION SOLUTION
-doMut = (rand(p.popSize,p.nGenes) < p.mutProb);     % Mutate genes or not?
-children(doMut) = randi([0 27], [1 sum(doMut(:))]); % Change to random values
+for childIndex=1:p.popSize
+    genes = children(childIndex, :);
+    
+    doMutationFlag = rand(1, p.nGenes) < p.mutProb;
+    doMutationInverseFlag = ~doMutationFlag;
+    
+    genes = genes .* doMutationInverseFlag;  % Set 0 for the genes to change
+    newGenes = randi([0,27],[1,p.nGenes]) .* doMutationFlag; % Set 0 for the genes not to change
+    genes = genes + newGenes;
+    
+    children(childIndex, :) = genes;
+end
+
+% doMut = (rand(p.popSize,p.nGenes) < p.mutProb);     % Mutate genes or not?
+% children(doMut) = randi([0 27], [1 sum(doMut(:))]); % Change to random values
 %------------- END OF CODE --------------
