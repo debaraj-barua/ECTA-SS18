@@ -32,12 +32,21 @@ function children  = my_crossover(pop, parentIds, p)
 children = pop( parentIds(:,1) ,:);
 
 %% ONE POINT CROSSOVER SOLUTION
-doXover = (rand(1,p.popSize) < p.crossProb);            % Crossover or not?
-crossPt = randi([1 p.nGenes-1],1,p.popSize) .* doXover; % Get Crossover Pts
-for iChild = 1:p.popSize
-   partA = 1:crossPt(iChild);
-   partB = 1+crossPt(iChild) : size(pop,2);
-   children(iChild,:) = ...
-       [pop(parentIds(iChild,1), partA), pop(parentIds(iChild,2), partB)];
+for index=1:size(pop,1)
+    doCrossOver = rand(1) < p.crossProb;
+    
+    if(doCrossOver)
+        crossOverPoint = randi(size(pop,2));
+        
+        first_parent_index = parentIds(index,1);
+        first_part = pop(first_parent_index,1:crossOverPoint);
+        
+        second_parent_index = parentIds(index,2);
+        second_part = pop(second_parent_index, crossOverPoint+1: size(pop,2));
+        
+        children(index,:) = [first_part second_part];
+    else
+        children(index, :) = pop(parentIds(index,1), :);
+    end
 end
 %------------- END OF CODE -------------
