@@ -33,7 +33,13 @@ function parentIds = my_selection(fitness, p)
 parentIds = randi(p.popSize, [p.popSize 2]);
 
 %% TOURNAMENT SELECTION SOLUTION
-tGroups = randi(p.popSize, [p.sp p.popSize*2]); % Make tournament groups
-[~,iWinner] = max(fitness(tGroups));            % Get Winner
-for i=1:length(tGroups); parentIds(i) = tGroups(iWinner(i),i); end 
+for child_count = 1:p.popSize
+    group = randi(p.popSize, [p.sp,2]);
+    [~, winner_index] = max(fitness(group));
+    
+    first_parent_index = group(winner_index(1,1), 1);
+    second_parent_index = group(winner_index(1,2), 2);
+    
+    parentIds(child_count, :) = [first_parent_index second_parent_index];
+end
 %------------- END OF CODE --------------
