@@ -35,7 +35,7 @@ for childIndex=1:p.popSize
     
     genes = genes .* doMutationInverseFlag;  % Set 0 for the genes to change
     newGenes = randi([0,27],[1,p.nGenes]) .* doMutationFlag; % Set 0 for the genes not to change
-    genes = genes + newGenes;
+    genes = genes + newGenes; % Combine the original genes with new values
     
     children(childIndex, :) = genes;
 end

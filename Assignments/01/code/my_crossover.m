@@ -33,20 +33,20 @@ children = pop( parentIds(:,1) ,:);
 
 %% ONE POINT CROSSOVER SOLUTION
 for index=1:size(pop,1)
-    doCrossOver = rand(1) < p.crossProb;
+    doCrossOver = rand(1) < p.crossProb;    % Determine whether to do cross over or not
     
     if(doCrossOver)
-        crossOverPoint = randi(size(pop,2));
+        crossOverPoint = randi(size(pop,2));    % Define cross over point in case of cross over
         
         first_parent_index = parentIds(index,1);
-        first_part = pop(first_parent_index,1:crossOverPoint);
+        first_part = pop(first_parent_index,1:crossOverPoint);  % Take first part from the first parent
         
         second_parent_index = parentIds(index,2);
-        second_part = pop(second_parent_index, crossOverPoint+1: size(pop,2));
+        second_part = pop(second_parent_index, crossOverPoint+1: size(pop,2));  % Take second part from second parent
         
-        children(index,:) = [first_part second_part];
+        children(index,:) = [first_part second_part];   % combine the two parts
     else
-        children(index, :) = pop(parentIds(index,1), :);
+        children(index, :) = pop(parentIds(index,1), :);    % Take first parent in case of no cross over
     end
 end
 %------------- END OF CODE -------------
