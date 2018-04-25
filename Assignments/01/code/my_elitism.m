@@ -28,7 +28,6 @@ function eliteIds = my_elitism(fitness, p)
 eliteIds = 1;
 
 %% ELITISM SOLUTION
-nElite = ceil(p.popSize * p.elitePerc);     % How many elites to take
-[~,iSorted]= sort(fitness,'descend');       % Sort population by fitness
-eliteIds = iSorted(1:nElite);               % Take top solutions
+[~,sorted_population_indices]= sort(fitness,'descend');
+eliteIds = sorted_population_indices(1:ceil(p.popSize * p.elitePerc));   % Take population with highest fitness
 %------------- END OF CODE --------------

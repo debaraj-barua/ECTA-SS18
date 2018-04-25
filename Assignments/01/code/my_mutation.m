@@ -39,7 +39,4 @@ for childIndex=1:p.popSize
     
     children(childIndex, :) = genes;
 end
-
-% doMut = (rand(p.popSize,p.nGenes) < p.mutProb);     % Mutate genes or not?
-% children(doMut) = randi([0 27], [1 sum(doMut(:))]); % Change to random values
 %------------- END OF CODE --------------
