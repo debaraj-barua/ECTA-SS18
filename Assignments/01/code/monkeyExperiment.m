@@ -61,7 +61,7 @@ hS2 = scatter(gens(h),ones(1,sum(h))*19,20,C(7,:),'filled','s');
 [hLine(3), hFill(2)] = percPlot(gens,fit2,C(5,:));
 
 % Label and make pretty
-hLeg = legend([hFill hS1 hS2],'Baseline', 'No Mutation','p > 0.05', 'p < 0.05','Location','SouthEast');
+hLeg = legend([hFill hS1 hS2],'Baseline', 'My Mutation','p > 0.05', 'p < 0.05','Location','SouthEast');
 axis([0 200 0 19]); grid on; xlabel('Generations'); ylabel('Fitness'); title('Fitness on Hamlet Quote'); set(gca,'Fontsize',24);
 
 %% The whole monologue
