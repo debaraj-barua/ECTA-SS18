@@ -158,7 +158,7 @@ With this data saved you can compare the two algorithms and compute the signific
 	\begin{figure}[h!]
 	\begin{center}
 	\includegraphics[width=0.75\textwidth]{img/1_vsStandard_my.png}
-	\caption{\color{red}Baseline vs Full}
+	\caption{Baseline vs Full}
 	\end{center}
 	\end{figure}
 	
@@ -178,7 +178,6 @@ With this data saved you can compare the two algorithms and compute the signific
 		\textit{Top Right:} No Mutation, 
 		\textit{Bottom Left:} No Crossover vs. No Crossover and No Elitism, 
 		\textit{Bottom Right:} No Mutation and No Elitism
-		\color{red}FILL IN YOUR OWN PLOTS HERE
 		}
 		\end{figure}
 \newpage
@@ -188,7 +187,10 @@ With this data saved you can compare the two algorithms and compute the signific
 %-------------------------%
 % ANSWER: 
 \textit{
- \color{red}WRITE SOMETHING HERE
+  \textbf{Crossover:}\\
+ 	Crossover combines existing solutions to form new solutions. It allows genes with higher fitness to be maintained and spreaded in following generations.The graph (1) shows that the fitness grows slowly without crossover compared to full implementation.\\
+ \textbf{Mutation:}\\
+ Mutation introduces new information and building blocks in the genes. The comparison (2) shows that, without mutation, the fitness value reaches its limit very quickly and the limit is quite less compared to the full implementation.
  }
 %-------------------------%
 
@@ -204,6 +206,7 @@ With this data saved you can compare the two algorithms and compute the signific
 %-------------------------%
 % ANSWER:
 \textit{
+Elitism is used to prevent losing progress over generations. The best solutions are copied into the next population without any change.\\
 \color{red}WRITE SOMETHING HERE
 }
 %-------------------------%	
@@ -221,7 +224,7 @@ By using the \mcode{tic} and \mcode{toc} commands we can time how long a program
 %-------------------------%
 % ANSWER:
 \textit{
-\color{red}WRITE SOMETHING HERE
+\\99.5159\% correct in 89.0095 seconds
 }
 %-------------------------%	
 

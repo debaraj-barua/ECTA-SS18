@@ -72,7 +72,7 @@ output = monkeyGa('hamletSoliloquy',p);
 gene2text(output.best(:,end)')  % Show the found text
 percentCorrect = (output.fitMax(end)/1446);
 timeToComplete = toc;           % End the timer
-disp([num2str(100*percentCorrect) '% correct in ' (timeToComplete) ' seconds'])
+disp([num2str(100*percentCorrect) '% correct in ' num2str(timeToComplete) ' seconds'])
 
 %% Timing a single evaluation
 aWholeBunchOfTimes = 100000;
