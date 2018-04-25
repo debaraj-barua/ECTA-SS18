@@ -22,7 +22,8 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{18pt}
 \title{ECTA Homework 1\\Genetic Algorithms\\and\\Infinite Monkeys}
-\author{\color{red}Md Zahiduzzaman, \texttt{md.zahiduzzaman@smail.inf.h-brs.de}}
+\author{\color{red} Debaraj Barua (9030412), \texttt{debaraj.barua@smail.inf.h-brs.de} \\
+\color{red}Md Zahiduzzaman (9030432), \texttt{md.zahiduzzaman@smail.inf.h-brs.de}}
 % //////////////////////////////////////////////////
 
 \begin{document}
@@ -99,14 +100,14 @@ One gene is a number between 0 and 27, corresponding to a space (0), letters a-z
 \subsection*{the Algorithm}
 I have created the basic structure of the GA for you. The magic happens in the loop here in \mcode{monkeyGa.m}:
 
-\lstinputlisting[firstline=88, lastline=107]{code/monkeyGa.m}
+\lstinputlisting[firstline=88, lastline=107]{../code/monkeyGa.m}
 
 It will be your job to implement each of the evolutionary operators and measure how they effect performance of the algorithm on the \mcode{hamletQuote} task. 
 
 \subsection*{Running the Algorithm}
 	To run the algorithm and view the results, you can use the snippet provided at the start of \mcode{monkeyExperiment.m}:
 
-\lstinputlisting[firstline=1, lastline=11]{code/monkeyExperiment.m}
+\lstinputlisting[firstline=1, lastline=11]{../code/monkeyExperiment.m}
 
 	To run a section in matlab (a code block marked by \mcode{\%\%}, with the cursor inside the code block click the `Run Section' button in the editor portion of the ribbon, or more simply hit `CTRL + Enter'). Run it a few times. As the only operator which is implemented is initialization, it will give you a pretty terrible result.
 
@@ -123,16 +124,16 @@ Begin by implementing the four given genetic operators, replacing the filler cod
 % Put your code here:
 
 \item \textbf{Tournament Selection}
-	\lstinputlisting[firstline=30, lastline=35]{code/my_selection.m}
+	\lstinputlisting[firstline=30, lastline=35]{../code/my_selection.m}
 	
 \item \textbf{Crossover}
-	\lstinputlisting[firstline=29, lastline=35]{code/my_crossover.m}
+	\lstinputlisting[firstline=29, lastline=35]{../code/my_crossover.m}
 	
 \item \textbf{Mutation}
-	\lstinputlisting[firstline=24, lastline=29]{code/my_mutation.m}
+	\lstinputlisting[firstline=24, lastline=29]{../code/my_mutation.m}
 	
 \item \textbf{Elitism}
-	\lstinputlisting[firstline=27, lastline=30]{code/my_elitism.m}	
+	\lstinputlisting[firstline=27, lastline=30]{../code/my_elitism.m}	
 	
 %-------------------------%
 \end{enumerate}
@@ -144,15 +145,15 @@ One common technique for better understanding an algorithm is remove each compon
 \subsubsection{Comparing Algorithms}
 Provided are versions of each operator with the prefix `adam' instead of `my'. These can be used to validate your own results. I included a version which uses them in the file `adamGa', which is exactly the same except this part:
 
-	\lstinputlisting[firstline=90, lastline=100]{code/adamGa.m}
+	\lstinputlisting[firstline=90, lastline=100]{../code/adamGa.m}
 
 As this is a stochastic algorithm to get a fair comparison we should run the algorithm multiple times and compare statistically. Lets use all the cores on your computer to do this as fast as possible using a \mcode{parfor} loop. This is just like a \mcode{for} loop, except it runs each iteration on a different core. Get the result of 20 runs of your code and mine and save it to disk:
 
-	\lstinputlisting[firstline=16, lastline=29]{code/monkeyExperiment.m}
+	\lstinputlisting[firstline=16, lastline=29]{../code/monkeyExperiment.m}
 
 With this data saved you can compare the two algorithms and compute the significance of the comparison. I have given you a few helper functions:
 
-	\lstinputlisting[firstline=45, lastline=64]{code/monkeyExperiment.m}
+	\lstinputlisting[firstline=45, lastline=64]{../code/monkeyExperiment.m}
 
 	\begin{figure}[h!]
 	\begin{center}
@@ -214,7 +215,7 @@ With this data saved you can compare the two algorithms and compute the signific
 \subsubsection{Using the GA}
 Now time to test your algorithm on the entire soliloquy. Is it really better than just banging on a typewriter? Switch out the fitness function and give the whole speech a try. It might take a little time, you may have to increase the number of generations to get to 100\%, for this purpose don't worry about replicates:
 
-\lstinputlisting[firstline=67, lastline=76]{code/monkeyExperiment.m}
+\lstinputlisting[firstline=67, lastline=76]{../code/monkeyExperiment.m}
 
 By using the \mcode{tic} and \mcode{toc} commands we can time how long a program takes to execute. How long did it take your algorithm to find the whole speech?\\
 %-------------------------%
@@ -229,7 +230,7 @@ By using the \mcode{tic} and \mcode{toc} commands we can time how long a program
 How long would it take to find the same solution by a monkey on a type writer, i.e. by brute force? The average and worst case for a brute force algorithm can be easily calculated by counting the possible states. Let's be charitable and say this is a particularly clever monkey, who is systematic and never typing the same thing twice. Lets be even more charitable and say that this clever monkey also has a MATLAB license and has created a program to do the typing for him. How many possible states are there? How long will it take this MATLAB monkey to explore them all? Please show your work and use appropriate units for your answer.
 
 (hint: to time a very fast piece of code, repeat in many times and take the average time, like this: )
-\lstinputlisting[firstline=83, lastline=88]{code/monkeyExperiment.m}
+\lstinputlisting[firstline=83, lastline=88]{../code/monkeyExperiment.m}
 
 
 %-------------------------%
