@@ -23,8 +23,8 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{18pt}
 \title{ECTA Homework 1\\Genetic Algorithms\\and\\Infinite Monkeys}
-\author{\color{red} Debaraj Barua (9030412), \texttt{debaraj.barua@smail.inf.h-brs.de} \\
-\color{red}Md Zahiduzzaman (9030432), \texttt{md.zahiduzzaman@smail.inf.h-brs.de}}
+\author{\color{blue} Debaraj Barua (9030412), \texttt{debaraj.barua@smail.inf.h-brs.de} \\
+\color{blue}Md Zahiduzzaman (9030432), \texttt{md.zahiduzzaman@smail.inf.h-brs.de}}
 % //////////////////////////////////////////////////
 
 \begin{document}
@@ -159,7 +159,7 @@ With this data saved you can compare the two algorithms and compute the signific
 	\begin{figure}[h!]
 	\begin{center}
 	\includegraphics[width=0.75\textwidth]{img/1_vsStandard_my.png}
-	\caption{Baseline vs Full}
+	\caption{\color{blue}Baseline vs Full implementation}
 	\end{center}
 	\end{figure}
 	
@@ -174,7 +174,7 @@ With this data saved you can compare the two algorithms and compute the signific
 		\includegraphics[width=0.5\textwidth]{img/5_vsNoMutNoElite_my.png}
 		\caption
 		{
-		\textbf{GA performance when operators are removed}\newline
+		\textbf{\color{blue}GA performance when operators are removed}\newline
 		\textit{Top Left:} No Crossover,
 		\textit{Top Right:} No Mutation, 
 		\textit{Bottom Left:} No Crossover vs. No Crossover and No Elitism, 
@@ -192,7 +192,7 @@ With this data saved you can compare the two algorithms and compute the signific
   \textbf{Crossover:}\\
  	Crossover combines existing solutions to form new solutions. It allows genes with higher fitness to be maintained and spreaded in following generations.The graph (1) shows that the fitness grows slowly without crossover compared to full implementation.\\
  \textbf{Mutation:}\\
- Mutation introduces new information and building blocks in the genes. The comparison (2) shows that, without mutation, the fitness value reaches its limit very quickly and the limit is quite less compared to the full implementation.
+Mutation introduces new information and building blocks in the genes. The comparison (2) shows that, without mutation, the fitness value is stuck in a local maxima.
  }
 %-------------------------%
 
@@ -200,7 +200,7 @@ With this data saved you can compare the two algorithms and compute the signific
 %-------------------------%
 % ANSWER:
 \textit{
-\color{red}WRITE SOMETHING HERE
+\color{blue}When only crossover is used without mutation and elitism then the fitness may get stuck in local maxima and there best individuals would not be taken to next genearation without elitism.\\Only crossover will work in case of a problem with one global maxima and no local maxima.
  }
 %-------------------------%
 	
@@ -209,8 +209,7 @@ With this data saved you can compare the two algorithms and compute the signific
 % ANSWER:
 \textit{
 \color{blue}	
-Elitism is used to prevent losing progress over generations. The best solutions are copied into the next population without any change.\\
-\color{red}WRITE SOMETHING HERE
+Elitism prevents losing progress over generations. The best solutions are copied into the next population without any change. In absence of elitism, crossover and mutation may result in deteriorating of the population fitness.
 }
 %-------------------------%	
 
