@@ -3,6 +3,7 @@
 
 % load package with some of the available options - you may not need this!
 \usepackage[framed,autolinebreaks,useliterate]{mcode}
+\usepackage{amsmath}
 
 % for checklist
 \usepackage{enumitem,amssymb}
@@ -187,6 +188,7 @@ With this data saved you can compare the two algorithms and compute the signific
 %-------------------------%
 % ANSWER: 
 \textit{
+ \color{blue}	
   \textbf{Crossover:}\\
  	Crossover combines existing solutions to form new solutions. It allows genes with higher fitness to be maintained and spreaded in following generations.The graph (1) shows that the fitness grows slowly without crossover compared to full implementation.\\
  \textbf{Mutation:}\\
@@ -206,6 +208,7 @@ With this data saved you can compare the two algorithms and compute the signific
 %-------------------------%
 % ANSWER:
 \textit{
+\color{blue}	
 Elitism is used to prevent losing progress over generations. The best solutions are copied into the next population without any change.\\
 \color{red}WRITE SOMETHING HERE
 }
@@ -224,6 +227,7 @@ By using the \mcode{tic} and \mcode{toc} commands we can time how long a program
 %-------------------------%
 % ANSWER:
 \textit{
+\color{blue}
 \\99.5159\% correct in 89.0095 seconds
 }
 %-------------------------%	
@@ -239,15 +243,24 @@ How long would it take to find the same solution by a monkey on a type writer, i
 %-------------------------%
 % ANSWER:
 \textit{
-\color{red}WRITE SOMETHING HERE
+\color{blue}
+\begin{itemize}
+	\item Time required for one evaluation: $2.8245 \times 10^{-06}$ seconds.
+	\item Now, number of possible states can be ${28}^{\text{nGenes}}$
+	\item So time required to compute this would be $2.8245 \times 10^{-06} \times {28}^{\text{nGenes}} $
+	\item For \textit{hamletSoliloquy} (\textit{nGenes} $=1446$), the time required will tend to infinity.
+	\item For \textit{hamletQuote}(\textit{nGenes} $=18$), the time required is $9.0890 \times 10^{12}$ years.
+\end{itemize}
 }
 %-------------------------%
 
-\vspace{3cm}
+\vfill
 How comparable are these methods? Is random search comparable to evolutionary search?\\
+
 %-------------------------%
 \textit{
-\color{red}WRITE SOMETHING HERE
+\color{blue}
+For evolutionary search, as we have seen before, the time required for \textit{hamletSoliloquy} is around 89 seconds, whereas for random search will need infinite time to come up with a similar solution. Thus, we can conclude that these approaches are not comparable.
 }
 %-------------------------%	
 
