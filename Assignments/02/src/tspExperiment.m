@@ -16,3 +16,7 @@ title('Performance on TSP Task')
 
 %% Plot in map
 plotTsp(output.best(:,end)', coords)
+
+%% Get the best distance
+minDistance = tspDistance(output.best(:, end)')
+disp(['Minimum distance: ' num2str(minDistance)])

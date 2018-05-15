@@ -50,7 +50,7 @@ if nargin<2     % > When called with only the task name, this function
                                  %   return the number of genes when no
                                  %   input arguments are given to make it
                                  %   easier to switch between tasks.
-    p.maxGen    = 100;
+    p.maxGen    = 3000;
     p.popSize   = 250;
     p.sp        = 2;
     p.crossProb = 0.8;

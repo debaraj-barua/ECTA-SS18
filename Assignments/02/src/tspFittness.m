@@ -35,18 +35,12 @@ nCities = size(cityData.data, 1);
 if nargin == 0; fitness = nCities; return; end
 
 % Otherwise it returns the number of matching genes in each individual
-populatinSize = size(pop, 1);
+popSize = size(pop, 1);
 
-coords = cityData.data([1:nCities], [3 2])'; % <- switch to plot with north up after imagesc
-
-fitness = NaN(populatinSize, 1);
-for i=1:populatinSize
+fitness = NaN(popSize, 1);
+for i=1:popSize
     ind = pop(i,:);
-    distance = pdist( coords(:,ind([1 end]) )'  );
-    for iCity = 2:nCities
-        twoCityCoords = coords(:,ind([iCity-1:iCity]) );
-        distance = distance + pdist( twoCityCoords'); % pDist expects columns to be cities so must transpose twoCityCoords
-    end
+    distance = tspDistance(ind);
     fitness(i, 1) = distance;
 end
 
