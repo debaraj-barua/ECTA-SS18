@@ -1,9 +1,10 @@
-%% Run the algorithm once
+%% Set Hyperparameters
 clear;
-p = tspGa('tspFittness');        % Set hyperparameters
-output = tspGa('tspFittness',p); % Run with hyperparameters
+p = tspGa('tspFittness'); 
+%% Run once
+output = tspGa('tspFittness',p);
 
-% View Result
+%% View Result
 cityData = importdata('cities.csv');
 nCities = size(cityData.data, 1);
 coords = cityData.data([1:nCities], [3 2])'; % <- switch to plot with north up after imagesc
@@ -18,5 +19,13 @@ title('Performance on TSP Task')
 plotTsp(output.best(:,end)', coords)
 
 %% Get the best distance
-minDistance = tspDistance(output.best(:, end)')
+coords = cityData.data([1:nCities], [3 2])'; % <- switch to plot with north up after imagesc
+distMat = squareform(pdist(coords')); % Precalculate Distance Matrix
+ind = output.best(:, end);
+minDistance = distMat(ind(1), ind(end));
+for iCity = 2:p.popSize
+    twoCityIndices= [ind(iCity-1), ind(iCity)]; % Indices of distance matrix
+    minDistance = minDistance + distMat(twoCityIndices(1), twoCityIndices(2));
+end
+
 disp(['Minimum distance: ' num2str(minDistance)])
