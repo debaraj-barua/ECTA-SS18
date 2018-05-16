@@ -1,11 +1,11 @@
-%% Set Hyperparameters
+%% Run the algorithm once
 clear;
 tic;
-p = tspGa('tspFittness'); 
-output = tspGa('tspFittness',p);
+p = tspGa('tspFittness');        % Set hyperparameters
+output = tspGa('tspFittness',p); % Run with hyperparameters
 endTime = toc;
 
-%% View Result
+% View Result
 cityData = importdata('cities.csv');
 nCities = size(cityData.data, 1);
 coords = cityData.data([1:nCities], [3 2])'; % <- switch to plot with north up after imagesc
@@ -20,45 +20,37 @@ title('Performance on TSP Task')
 plotTsp(output.best(:,end)', coords)
 
 %% Get the best distance
-coords = cityData.data([1:nCities], [3 2])'; % <- switch to plot with north up after imagesc
-distMat = squareform(pdist(coords')); % Precalculate Distance Matrix
-ind = output.best(:, end);
-minDistance = distMat(ind(1), ind(end));
-for iCity = 2:p.popSize
-    twoCityIndices= [ind(iCity-1), ind(iCity)]; % Indices of distance matrix
-    minDistance = minDistance + distMat(twoCityIndices(1), twoCityIndices(2));
-end
-
+minDistance = tspDistance(output.best(:, end)');
 disp(['Minimum distance: ' num2str(minDistance)])
 disp(['Total time: ' num2str(endTime)])
 
 %% Plot different crossover rates
-load('c_01_m_99.mat');
-load('c_10_m_99.mat');
-load('c_50_m_99.mat');
-load('c_99_m_99.mat');
+load('output_c_01_m_99.mat');
+load('output_c_10_m_99.mat');
+load('output_c_50_m_99.mat');
+load('output_c_99_m_99.mat');
 
 
-plot([c_01_m_99.fitMax; c_10_m_99.fitMax; c_50_m_99.fitMax; c_99_m_99.fitMax]','LineWidth',3);
+plot([output_c_01_m_99.fitMax; output_c_10_m_99.fitMax; output_c_50_m_99.fitMax; output_c_99_m_99.fitMax]','LineWidth',3);
 legend('Crossover 1%','Crossover 10%', 'Crossover 50%', 'Crossover 99%', 'Location','NorthEast');
 xlabel('Generation'); ylabel('Distance'); set(gca,'FontSize',16);
-title('Minimum distance for different crossover rate and 80% mutation rate')
+title('Minimum distance for different crossover rate and 99% mutation rate')
 
 %% Plot different mutation rates
-load('m_01_c_99.mat');
-load('m_10_c_99.mat');
-load('m_50_c_99.mat');
-load('m_99_c_99.mat');
+load('output_c_99_m_01.mat');
+load('output_c_99_m_10.mat');
+load('output_c_99_m_50.mat');
+load('output_c_99_m_99.mat');
 
 
-plot([m_01_c_99.fitMax; m_10_c_99.fitMax; m_50_c_99.fitMax; m_99_c_99.fitMax]','LineWidth',3);
+plot([output_c_99_m_01.fitMax; output_c_99_m_10.fitMax; output_c_99_m_50.fitMax; output_c_99_m_99.fitMax]','LineWidth',3);
 legend('Mutation 1%','Mutation 10%', 'Mutation 50%', 'Mutation 99%', 'Location','NorthEast');
 xlabel('Generation'); ylabel('Distance'); set(gca,'FontSize',16);
-title('Minimum distance for different mutation rate and 80% crossover rate')
+title('Minimum distance for different mutation rate and 99% crossover rate')
 
 %% Save result
-mc_50_99 = output;
-save('mc_50_99.mat','mc_50_99');
+output_c_99_m_50 = output;
+save('output_c_99_m_50.mat','output_c_99_m_50');
 
 %% Repeat 30 times and record distance
 min_distance = NaN(1,30);
@@ -70,12 +62,16 @@ for i=1:30
     
     distance = tspDistance(output.best(:, end)');
     min_distance(i) = distance;
-
 end
 
 %% Calculate and plot distance for 30 runs
-load('mc_30_99_99.mat');
+load('output_30_c_99_m_99.mat');
 
-median_value = median(mc_30_99_99);
+median_value = median(output_30_c_99_m_99);
 disp(['Median for 30 repeatation is: ' num2str(median_value)]);
+
+hist(output_30_c_99_m_99, 25);
+xlabel('Minimum distance'); ylabel('Frequency'); set(gca,'FontSize',16);
+title('Minimum distance for 30 repeatation with 99% crossover and mutation')
+
 

@@ -1,4 +1,43 @@
-function output = tsp_ga(task, p)
+function output = tspGa(task, p)
+%hamletGa - Main Genetic Algorithm script for Hamlet and Infinite Monkeys
+% Run this function with your own code filled in to complete the
+% assignment, feel free to add anything you want, but for analysis be sure
+% to output the same fitness info.
+%
+% Syntax:  output = monkeyGa(task, p)
+%
+% Inputs:
+%    task   - _string  - name of fitness function
+%    p      - _struct  - hyperparameters of run
+%
+% Outputs:
+%   output  - _struct  - result of run
+%   .fitMax - [1 X N]  - Best fitness in each generation
+%   .fitMed - [1 X N]  - Median fitness in each generation
+%   .best   - [M X N]  - Genes of best individual in each generation
+%
+% Example: 
+%     %% The quote
+%     p = monkeyGa('hamletQuote');
+%     output = monkeyGa('hamletQuote',p);
+%     gene2text(output.best(:,end)')
+% 
+%     %% The whole monologue
+%     p = monkeyGa('hamletSoliloquy');
+%     p.maxGen  = 10000;
+%     output = monkeyGa('hamletSoliloquy',p);
+%     gene2text(output.best(:,end)')
+%
+% Other m-files required: selection, crossover, mutation, elitism,
+% hamletQuote, hamletSoliloquy
+%
+% See also: selection, crossover, mutation, elitism
+
+% Author: Adam Gaier
+% Bonn-Rhein-Sieg University of Applied Sciences (BRSU)
+% email: adam.gaier@h-brs.de
+% Feb 2018; Last revision: 20-Feb-2018
+
 %------- Default Hyperparameters -------
 if nargin<2     % > When called with only the task name, this function 
                 %   only outputs the default hyperparameters. The function
@@ -15,7 +54,7 @@ if nargin<2     % > When called with only the task name, this function
     p.popSize   = 50;
     p.sp        = 2;
     p.crossProb = 0.99;
-    p.mutProb   = 0.99;
+    p.mutProb   = 0.50;
     p.elitePerc = 0.1;
     output      = p;             % Output default hyperparameters
     return
@@ -37,8 +76,9 @@ for iGen = 1:p.maxGen
     %% Initialize population
     % - Initialize a population of random individuals and evaluate them.
     if iGen == 1
-        pop = NaN(p.popSize, p.nGenes);
-        for iPop = 1:p.popSize
+        pop         = NaN(p.popSize, p.nGenes);
+        
+        for iPop = 1: p.popSize
             pop(iPop,:) = randperm(p.nGenes);
         end
         fitness     = feval(p.task, pop);        
@@ -71,8 +111,8 @@ for iGen = 1:p.maxGen
     fitness   = feval(p.task, pop);
     
     % Print status
-    %minDistance = tspDistance(pop(iBest, :));
-    %disp(['Generation ' num2str(iGen) ', Minimum distance: ' num2str(minDistance)]);
+    minDistance = tspDistance(pop(iBest, :));
+    disp(['Generation ' num2str(iGen) ', Minimum distance: ' num2str(minDistance)]);
 end
 
 output.fitMax   = fitMax;

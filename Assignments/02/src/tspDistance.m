@@ -3,9 +3,11 @@ function distance = tspDistance(ind)
     nCities = size(cityData.data, 1);
     coords = cityData.data([1:nCities], [3 2])'; % <- switch to plot with north up after imagesc
     
-    distance = pdist( coords(:,ind([1 end]) )'  );
-    for iCity = 2:nCities
-        twoCityCoords = coords(:,ind([iCity-1:iCity]) );
-        distance = distance + pdist( twoCityCoords'); % pDist expects columns to be cities so must transpose twoCityCoords
+    distMat = squareform(pdist(coords')); % Precalculate Distance Matrix
+    
+    distance = distMat(ind(1), ind(end));
+    for iCity = 2:size(ind, 2)
+        twoCityIndices= [ind(iCity-1), ind(iCity)]; % Indices of distance matrix
+        distance = distance + distMat(twoCityIndices(1), twoCityIndices(2));
     end
 end

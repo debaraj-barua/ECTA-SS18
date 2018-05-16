@@ -19,7 +19,7 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{ECTA Homework XXXXXXXXXXX}
+\rhead{ECTA Homework 02}
 \cfoot{\thepage}
 
 \setlength{\droptitle}{-5em}
@@ -65,10 +65,10 @@ Repetitions & 30 \\
 \hline
 Generations & 1000 \\
 \hline
-Average best fitness		 & 72.0185 \\
+Average best fitness		 & 71.9508 \\
 \hline
 \end{tabular}
-\caption{80\% mutation rate used for various crossover rate and 80\% crossover rate used for various mutation rate. For 30 repetition, both crossover and mutation rate was set to 99\% }
+\caption{99\% mutation rate used for various crossover rate and 99\% crossover rate used for various mutation rate. For 30 repetition, both crossover and mutation rate was set to 99\% }
 \label{table:defparams}
 \end{table}
 
@@ -77,23 +77,30 @@ Average best fitness		 & 72.0185 \\
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.7\textwidth]{images/resultmap-mine}
-    \caption{Map using 99\% crossover and mutation \label{fig:xxx1}}
+  \includegraphics[width=1.0\textwidth]{images/resultmap-mine-crop}
+    \caption{Map using 99\% crossover and 99\%mutation \label{fig:xxx1}}
 \end{figure}
 
-\newpage
+\subsection{Result for 30 repeats}
+
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/histogram}
+	\caption{Histogram for 30 runs \label{fig:mutfig}}
+\end{figure}
+
+
 \subsection{Different mutation rates}
 
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/crossfig-mine}
-	\caption{Caption describing your plot \label{fig:crossfig}}
+	\includegraphics[width=1.1\textwidth]{images/crossfig-mine}
+	\caption{Different mutation rate for 99\% crossover \label{fig:crossfig}}
 \end{figure}
 
 Describe and explain the different mutation rates and how they influence the learning behaviour. Please remember to also focus on why, not only on what.
 Also elaborate on the mutation rate you have chosen as best mutation rate.
-
-\newpage
 
 \subsection{Different crossover rates}
 
@@ -101,7 +108,7 @@ Also elaborate on the mutation rate you have chosen as best mutation rate.
 \begin{figure}[ht!]
   \centering
   \includegraphics[width=1.0\textwidth]{images/mutfig-mine}
-    \caption{Caption describing your plot \label{fig:mutfig}}
+    \caption{Different crossover rate for 99\% mutation \label{fig:mutfig}}
 \end{figure}
 
 Describe and explain the different crossover rates and how they influence the learning behaviour. Please remember to also focus on why, not only on what.
