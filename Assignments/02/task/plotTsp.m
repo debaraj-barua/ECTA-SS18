@@ -19,7 +19,7 @@ function h  = plotTsp(genes, coords, img)
 
 %------------- Input Parsing ------------
 if      nargin < 3;   img = imread('germany-cities-map.jpg'); 
-elseif isstring(img); img = imread(img); 
+elseif ischar(img); img = imread(img); 
 end
 %------------- BEGIN CODE --------------
 % Plot background image
