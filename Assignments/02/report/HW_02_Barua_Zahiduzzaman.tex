@@ -55,20 +55,20 @@ Please Follow those remarks. Deviating will lead to a reduced score
 \hline
 \textbf{Parameter} & \textbf{Value}   \\
 \hline
-Population size & XXX \\
+Population size & 50 \\
 \hline
-Crossover Rates &  1, 2, 3, 4 \\
+Crossover Rates &  1\%, 10\%, 50\%, 99\% \\
 \hline
-Mutation Rates & 1, 2, 3, 4 \\
+Mutation Rates & 1\%, 10\%, 50\%, 99\% \\
 \hline
 Repetitions & 30 \\
 \hline
-Generations & XXX \\
+Generations & 1000 \\
 \hline
-Average best fitness		 & XXX \\
+Average best fitness		 & 72.0185 \\
 \hline
 \end{tabular}
-\caption{Add a Table describing all relevant parameters for your experiments. You can add more parameters as you seem fit. }
+\caption{80\% mutation rate used for various crossover rate and 80\% crossover rate used for various mutation rate. For 30 repetition, both crossover and mutation rate was set to 99\% }
 \label{table:defparams}
 \end{table}
 
@@ -77,8 +77,8 @@ Average best fitness		 & XXX \\
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.7\textwidth]{images/resultmap}
-    \caption{Show your best map \label{fig:xxx1}}
+  \includegraphics[width=0.7\textwidth]{images/resultmap-mine}
+    \caption{Map using 99\% crossover and mutation \label{fig:xxx1}}
 \end{figure}
 
 \newpage
@@ -86,7 +86,7 @@ Average best fitness		 & XXX \\
 
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/crossfig}
+	\includegraphics[width=1.0\textwidth]{images/crossfig-mine}
 	\caption{Caption describing your plot \label{fig:crossfig}}
 \end{figure}
 
@@ -100,7 +100,7 @@ Also elaborate on the mutation rate you have chosen as best mutation rate.
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=1.0\textwidth]{images/mutfig}
+  \includegraphics[width=1.0\textwidth]{images/mutfig-mine}
     \caption{Caption describing your plot \label{fig:mutfig}}
 \end{figure}
 

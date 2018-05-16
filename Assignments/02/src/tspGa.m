@@ -14,7 +14,7 @@ if nargin<2     % > When called with only the task name, this function
     p.maxGen    = 1000;
     p.popSize   = 50;
     p.sp        = 2;
-    p.crossProb = 0.80;
+    p.crossProb = 0.99;
     p.mutProb   = 0.99;
     p.elitePerc = 0.1;
     output      = p;             % Output default hyperparameters
@@ -69,6 +69,10 @@ for iGen = 1:p.maxGen
     
     % Evaluate new population
     fitness   = feval(p.task, pop);
+    
+    % Print status
+    %minDistance = tspDistance(pop(iBest, :));
+    %disp(['Generation ' num2str(iGen) ', Minimum distance: ' num2str(minDistance)]);
 end
 
 output.fitMax   = fitMax;
