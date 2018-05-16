@@ -33,9 +33,14 @@ for childIndex=1:p.popSize
         index_1 = randi(p.nGenes);
         index_2 = randi(p.nGenes);
         
-        temp = genes(index_1);
-        genes(index_1) = genes(index_2);
-        genes(index_2) = temp;
+        start_index = min(index_1, index_2);
+        end_index = max(index_1, index_2);
+        
+        first_part = genes(1 : start_index);
+        second_part = genes(start_index+1 : end_index);
+        third_part = genes(end_index+1 : end);
+        
+        genes = [third_part first_part second_part];
         
         children(childIndex, :) = genes;
     end

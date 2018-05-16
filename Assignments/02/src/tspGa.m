@@ -50,11 +50,11 @@ if nargin<2     % > When called with only the task name, this function
                                  %   return the number of genes when no
                                  %   input arguments are given to make it
                                  %   easier to switch between tasks.
-    p.maxGen    = 20;
-    p.popSize   = 100;
+    p.maxGen    = 1000;
+    p.popSize   = 50;
     p.sp        = 2;
-    p.crossProb = 0.8;
-    p.mutProb   = 1/p.nGenes;
+    p.crossProb = 0.99;
+    p.mutProb   = 0.99;
     p.elitePerc = 0.1;
     output      = p;             % Output default hyperparameters
     return
@@ -110,14 +110,9 @@ for iGen = 1:p.maxGen
     % Evaluate new population
     fitness   = feval(p.task, pop);
     
-    %% Plot Population Progress
-    % Comment this out or create a variable to toggle its execution when
-    % running batch experiments.
-%     if ~mod(iGen,100)
-%         plot([fitMax; fitMed]');
-%         legend('Max Fitness','Median Fitness','Location','NorthWest');
-%         drawnow;
-%     end
+    % Print status
+    minDistance = tspDistance(pop(iBest, :));
+    disp(['Generation ' num2str(iGen) ', Minimum distance: ' num2str(minDistance)]);
 end
 
 output.fitMax   = fitMax;
