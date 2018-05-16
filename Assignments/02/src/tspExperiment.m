@@ -1,7 +1,9 @@
 %% Run the algorithm once
 clear;
+tic;
 p = tspGa('tspFittness');        % Set hyperparameters
 output = tspGa('tspFittness',p); % Run with hyperparameters
+endTime = toc;
 
 % View Result
 cityData = importdata('cities.csv');
@@ -18,5 +20,6 @@ title('Performance on TSP Task')
 plotTsp(output.best(:,end)', coords)
 
 %% Get the best distance
-minDistance = tspDistance(output.best(:, end)')
+minDistance = tspDistance(output.best(:, end)');
 disp(['Minimum distance: ' num2str(minDistance)])
+disp(['Total time: ' num2str(endTime)])
