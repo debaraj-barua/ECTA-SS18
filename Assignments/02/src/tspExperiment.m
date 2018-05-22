@@ -26,32 +26,41 @@ disp(['Minimum distance: ' num2str(minDistance)])
 disp(['Total time: ' num2str(endTime)])
 
 %% Plot different crossover rates
-load('output_c_01_m_99.mat');
-load('output_c_10_m_99.mat');
-load('output_c_50_m_99.mat');
-load('output_c_99_m_99.mat');
+load('output_c_01_m_100.mat');
+load('output_c_10_m_100.mat');
+load('output_c_99_m_100.mat');
+load('output_c_100_m_100.mat');
 
 
-plot([output_c_01_m_99.fitMax; output_c_10_m_99.fitMax; output_c_50_m_99.fitMax; output_c_99_m_99.fitMax]','LineWidth',3);
-legend('Crossover 1%','Crossover 10%', 'Crossover 50%', 'Crossover 99%', 'Location','NorthEast');
+plot([output_c_01_m_100; output_c_10_m_100; output_c_99_m_100; output_c_100_m_100]','LineWidth',1);
+legend('Crossover 1%','Crossover 10%', 'Crossover 99%', 'Crossover 100%', 'Location','NorthEast');
 xlabel('Generation'); ylabel('Distance'); set(gca,'FontSize',16);
-title('Minimum distance for different crossover rate and 99% mutation rate')
+title('Minimum distance for different crossover rate and 100% mutation rate')
 
 %% Plot different mutation rates
-load('output_c_99_m_01.mat');
-load('output_c_99_m_10.mat');
-load('output_c_99_m_50.mat');
-load('output_c_99_m_99.mat');
+load('output_c_100_m_01.mat');
+load('output_c_100_m_10.mat');
+load('output_c_100_m_99.mat');
+load('output_c_100_m_100.mat');
 
 
-plot([output_c_99_m_01.fitMax; output_c_99_m_10.fitMax; output_c_99_m_50.fitMax; output_c_99_m_99.fitMax]','LineWidth',3);
-legend('Mutation 1%','Mutation 10%', 'Mutation 50%', 'Mutation 99%', 'Location','NorthEast');
+plot([output_c_100_m_01; output_c_100_m_10; output_c_100_m_99; output_c_100_m_100]','LineWidth',1);
+legend('Mutation 1%','Mutation 10%', 'Mutation 99%', 'Mutation 100%', 'Location','NorthEast');
 xlabel('Generation'); ylabel('Distance'); set(gca,'FontSize',16);
-title('Minimum distance for different mutation rate and 99% crossover rate')
+title('Minimum distance for different mutation rate and 100% crossover rate')
 
 %% Save result
-output_c_99_m_50 = output;
-save('output_c_99_m_50.mat','output_c_99_m_50');
+result = NaN(30, 1000);
+for c = 1:size(result, 1)
+    p = tspGa('tspFittness');        % Set hyperparameters
+    output = tspGa('tspFittness',p); % Run with hyperparameters
+    
+    result(c,:) = output.fitMax;
+    disp(['Current index: ' num2str(c)])
+end
+
+output_c_100_m_99 = median(result);
+save('output_c_100_m_99.mat','output_c_100_m_99');
 
 %% Repeat 30 times and record distance
 min_distance = NaN(1,30);
@@ -72,5 +81,20 @@ disp(['Median for 30 repeatation is: ' num2str(median_value)]);
 hist(output_30_c_99_m_99, 25);
 xlabel('Minimum distance'); ylabel('Frequency'); set(gca,'FontSize',16);
 title('Minimum distance for 30 repeatation with 99% crossover and mutation')
+
+%% Calculate average distance
+load('output_c_01_m_100.mat');
+load('output_c_10_m_100.mat');
+load('output_c_99_m_100.mat');
+
+load('output_c_100_m_01.mat');
+load('output_c_100_m_10.mat');
+load('output_c_100_m_99.mat');
+
+load('output_c_100_m_100.mat');
+
+total = output_c_01_m_100(end) + output_c_10_m_100(end) + output_c_99_m_100(end) + output_c_100_m_01(end) + output_c_100_m_10(end) + output_c_100_m_99(end) + output_c_100_m_100(end);
+
+disp(['Average distance is: ' num2str(total / 7.0)]);
 
 

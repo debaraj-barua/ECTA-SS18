@@ -57,15 +57,17 @@ Please Follow those remarks. Deviating will lead to a reduced score
 \hline
 Population size & 50 \\
 \hline
-Crossover Rates &  1\%, 10\%, 50\%, 99\% \\
+Crossover Rates &  1\%, 10\%, 99\%, 100\% \\
 \hline
-Mutation Rates & 1\%, 10\%, 50\%, 99\% \\
+Mutation Rates & 1\%, 10\%, 99\%, 100\% \\
 \hline
 Repetitions & 30 \\
 \hline
 Generations & 1000 \\
 \hline
-Average best fitness		 & 71.9508 \\
+Average best fitness		 & 108.1341 \\
+\hline
+Minimum best fitness		 & 69.8973 \\
 \hline
 \end{tabular}
 \caption{99\% mutation rate used for various crossover rate and 99\% crossover rate used for various mutation rate. For 30 repetition, both crossover and mutation rate was set to 99\% }
@@ -78,37 +80,29 @@ Average best fitness		 & 71.9508 \\
 \begin{figure}[ht!]
   \centering
   \includegraphics[width=1.0\textwidth]{images/resultmap-mine-crop}
-    \caption{Map using 99\% crossover and 99\%mutation \label{fig:xxx1}}
+    \caption{Map using 100\% crossover and 100\% mutation \label{fig:xxx1}}
 \end{figure}
 
-\subsection{Result for 30 repeats}
-
-
-\begin{figure}[ht!]
-	\centering
-	\includegraphics[width=1.0\textwidth]{images/histogram}
-	\caption{Histogram for 30 runs \label{fig:mutfig}}
-\end{figure}
-
-
+\newpage
 \subsection{Different mutation rates}
 
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=1.1\textwidth]{images/crossfig-mine}
-	\caption{Different mutation rate for 99\% crossover \label{fig:crossfig}}
+	\caption{Different mutation rate for 100\% crossover \label{fig:crossfig}}
 \end{figure}
 
 Describe and explain the different mutation rates and how they influence the learning behaviour. Please remember to also focus on why, not only on what.
 Also elaborate on the mutation rate you have chosen as best mutation rate.
 
+\newpage
 \subsection{Different crossover rates}
 
 
 \begin{figure}[ht!]
   \centering
   \includegraphics[width=1.0\textwidth]{images/mutfig-mine}
-    \caption{Different crossover rate for 99\% mutation \label{fig:mutfig}}
+    \caption{Different crossover rate for 100\% mutation \label{fig:mutfig}}
 \end{figure}
 
 Describe and explain the different crossover rates and how they influence the learning behaviour. Please remember to also focus on why, not only on what.
