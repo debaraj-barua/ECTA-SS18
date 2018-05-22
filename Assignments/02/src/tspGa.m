@@ -112,7 +112,7 @@ for iGen = 1:p.maxGen
     
     % Print status
     minDistance = tspDistance(pop(iBest, :));
-    disp(['Generation ' num2str(iGen) ', Minimum distance: ' num2str(minDistance)]);
+    %disp(['Generation ' num2str(iGen) ', Minimum distance: ' num2str(minDistance)]);
 end
 
 output.fitMax   = fitMax;

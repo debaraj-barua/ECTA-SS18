@@ -1,14 +1,15 @@
+%% Load Data
+cityData = importdata('cities.csv');
+nCities = size(cityData.data, 1);
+coords = cityData.data([1:nCities], [3 2])'; % <- switch to plot with north up after imagesc
+distMat = squareform(pdist(coords')); % Precalculate Distance Matrix
+save distMat.mat distMat
+
 %% Run the algorithm once
-clear;
 tic;
 p = tspGa('tspFittness');        % Set hyperparameters
 output = tspGa('tspFittness',p); % Run with hyperparameters
 endTime = toc;
-
-% View Result
-cityData = importdata('cities.csv');
-nCities = size(cityData.data, 1);
-coords = cityData.data([1:nCities], [3 2])'; % <- switch to plot with north up after imagesc
 
 %% Show plot for the fitness
 plot([output.fitMax; output.fitMed]','LineWidth',3);
@@ -55,11 +56,9 @@ save('output_c_99_m_50.mat','output_c_99_m_50');
 %% Repeat 30 times and record distance
 min_distance = NaN(1,30);
 for i=1:30
-    disp(['Run: ' num2str(i)])
-    
+    disp(['Run: ' num2str(i)])    
     p = tspGa('tspFittness');        % Set hyperparameters
-    output = tspGa('tspFittness',p); % Run with hyperparameters
-    
+    output = tspGa('tspFittness',p); % Run with hyperparameters    
     distance = tspDistance(output.best(:, end)');
     min_distance(i) = distance;
 end
