@@ -23,8 +23,6 @@ function eliteIds = my_elitism(fitness, p)
 % Feb 2018; Last revision: 20-Feb-2018
 
 %------------- BEGIN CODE --------------
-
-%% ELITISM SOLUTION
 [~,sorted_population_indices]= sort(fitness,'ascend');
 eliteIds = sorted_population_indices(1:ceil(p.popSize * p.elitePerc));   % Take population with highest fitness
 %------------- END OF CODE --------------
