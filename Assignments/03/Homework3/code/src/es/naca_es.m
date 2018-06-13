@@ -4,26 +4,28 @@ if nargin < 3
     
     p.task      = task;
     p.nGenes    = 32;
-    p.maxGen    = 150;
-    p.popSize   = 50;
+    p.maxGen    = 500;
+    p.popSize   = 100;
     
     % NACA Parameters
     p.numEvalPts = 256;
     paramArray =  [[0, 0, 1, 2];[5, 5, 2, 2]; [9, 7, 3, 5]];
     p.nacafoil = create_naca(paramArray(nacaNum,:),p.numEvalPts);
-   
-    % ES params    
-    p.accuracy = 1e-4;    
+    
+    % breaking condition
+    p.accuracy = 1e-4; 
+    
+    % ES params
+    p.noOfElites = p.popSize/5;
+    p.weights = (-p.noOfElites:-1)*-1/sum((1:p.noOfElites)); 
     p.sigma = 0.01;    
     p.updateSigmaTime = 5; %should be multiple of 5
-    
-    p.mu = 10;
-    %p.mu = 1;
-%     p.k = inf(1); 
-%     p.lambda = 1;
-%     p.rho = 1;
 
-    p.weights = (-p.mu:-1)*-1/sum((1:p.mu)); 
+    %p.k = inf(1); 
+    %p.lambda = 1;
+    %p.rho = 1;
+
+    % Elitism params
     p.mean_g = rand(1, p.nGenes)-0.5;
     p.mean_fit = feval(p.task,p.mean_g,p);
     
@@ -39,15 +41,6 @@ mutSuccessful = 0;
 time = 1;
 %% 
 while iGen <= p.maxGen
-%     
-%     Q = [];
-%     
-%     for i = 1:p.lambda
-%         % Selection -- Returns [MX2] indices of parents
-%         parentIds = randi(p.popSize, [p.rho,1]);
-%     end
-
-
     pop = create_children(p);
     fitness = feval(p.task, pop, p);
     mutSuccessful = mutSuccessful + sum(fitness < p.mean_fit);
@@ -58,10 +51,11 @@ while iGen <= p.maxGen
         time = 1;
     end
     
-    % select the p.mu best individuals
+    % select the p.noOfElites best individuals
     elite_ids = es_elitism(fitness,p);
     elite = pop(elite_ids,:);
-     
+    
+    % update mean individual from elites
     p.mean_g = get_mean(elite,p);
     p.mean_fit = feval(p.task, p.mean_g,p);
     
@@ -70,14 +64,13 @@ while iGen <= p.maxGen
     fitMed(iGen)          = median(fitness);
     best(:,iGen)          = pop(iBest,:);
     
-    iGen = iGen+1;
-    time = time+1;
-    
-    if iGen > p.maxGen || median(fitness) < p.accuracy
-        convergedGen = iGen-1;
+    % break when converged
+    if iGen >= p.maxGen || (iGen>50 &&  mean(fitMed(iGen-50:iGen))< p.accuracy && mean(fitness)<p.accuracy)
+        convergedGen = iGen;
         break;
     end 
-    
+    iGen = iGen+1;
+    time = time+1;
 end
 output.fitMax = fitMax;
 output.fitMed = fitMed;

@@ -7,10 +7,10 @@ disp('start')
 output = naca_ga('naca_fitness',Nacanum,p);
 toc
 %% save
-save op/ga_p.mat p
-save op/ga_output.mat output
+save op/100_500_ga_p.mat p
+save op/100_500_ga_output.mat output
 %% Visualization of GA
-bestIndividual = output.best(:,p.maxGen)';
+bestIndividual = output.best(:,output.convergedGen)';
 %%
 figure(1)
 visualize(bestIndividual, p);
@@ -28,8 +28,8 @@ disp('start')
 output = naca_es('naca_fitness',Nacanum,p);
 toc
 %% save
-save op/es_p.mat p
-save op/es_output.mat output
+save op/100_500_es_p.mat p
+save op/100_500_es_output.mat output
 %% Visualization of ES
 bestIndividual = output.best(:,output.convergedGen)';
 %%
@@ -50,8 +50,8 @@ disp('start')
 output = naca_cmaes('naca_fitness',Nacanum,p);
 toc
 %% save
-save op/cmaes_p.mat p
-save op/cmaes_output.mat output
+save op/100_500_cmaes_p.mat p
+save op/100_500_cmaes_output.mat output
 %% Visualization of CMAES
 bestIndividual = output.best(:,output.convergedGen)';
 %%
@@ -70,12 +70,12 @@ disp('start')
 output = naca_cmaes_ep('naca_fitness',Nacanum,p);
 toc
 %% save
-save op/cmaes_p.mat p
-save op/cmaes_output.mat output
+save op/cmaesep_p.mat p
+save op/cmaesep_output.mat output
 %% Visualization of CMAES-EP
 bestIndividual = output.best(:,output.convergedGen)';
 %%
-figure(1)
+figure(3)
 visualize(bestIndividual, p);
-figure(2)
+figure(4)
 fitPlot(output.fitMax, output.fitMed)

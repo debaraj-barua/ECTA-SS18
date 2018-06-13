@@ -15,6 +15,9 @@ if nargin<3
     paramArray =  [[0, 0, 1, 2];[5, 5, 2, 2]; [9, 7, 3, 5]];
     p.nacafoil = create_naca(paramArray(nacaNum,:),p.numEvalPts);
     
+    % breaking condition
+    p.accuracy = 1e-4; 
+        
     output      = p;             % Output default hyperparameters
     return
 end
@@ -26,6 +29,7 @@ end
 fitMax = nan(1,p.maxGen);         % Record the maximum fitness
 fitMed = nan(1,p.maxGen);         % Record the median  fitness
 best   = nan(p.nGenes, p.maxGen); % Record the best individual
+convergedGen = 1;
 
 %% Generation Loop
 for iGen = 1:p.maxGen    
@@ -59,9 +63,17 @@ for iGen = 1:p.maxGen
     [fitMax(iGen), iBest] = min(fitness); % 1st output is the max value, 2nd the index of that max value    
     fitMed(iGen)          = median(fitness);
     best(:,iGen)          = pop(iBest,:);
+    
+    % break when converged
+    if iGen >= p.maxGen || (iGen>50 &&  mean(fitMed(iGen-50:iGen))< p.accuracy && mean(fitness)<p.accuracy)
+        convergedGen = iGen;
+        break;
+    end 
+    
 end
 
 output.fitMax   = fitMax;
 output.fitMed   = fitMed;
 output.best     = best;
+output.convergedGen = convergedGen;
 %------------- END OF CODE --------------
