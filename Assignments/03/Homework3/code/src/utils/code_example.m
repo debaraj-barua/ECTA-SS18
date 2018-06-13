@@ -8,7 +8,7 @@ individual = rand(32,1)-0.5;
 % Extract spline representation of foil (with the same number of evaluation
 % points as the NACA profile
 [foil, nurbs] = pts2ind(individual,numEvalPts);
-
+%%
 % Calculate pairwise error
 half = round(nacafoil/2);
 [~,errorTop] =    dsearchn(nacafoil(:,1:end/2)'    ,foil(:,1:end/2)');
@@ -17,7 +17,7 @@ half = round(nacafoil/2);
 % Total fitness (mean squared error)
 fitness = mean([errorTop.^2; errorBottom.^2]);
 
-% Visualize
+%% Visualize
 figure(1);
 plot(nacafoil(1,:),nacafoil(2,:), 'LineWidth', 3);
 hold on;

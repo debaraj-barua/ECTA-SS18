@@ -1,6 +1,5 @@
 function [ foil ] = create_naca( nacaParams, points )
 %function [ foil ] = create_naca( chordLength, span, angleAttack, nacaParams, points )
-
 %% CREATE_NACA Creates a 2D naca shape
 %     Partially based on NACA2STL script by Håkon Strandenes, hakostra@stud.ntnu.no %
 points = 256;
