@@ -3,10 +3,10 @@ function fitness = naca_fitness(pop,p)
 fitness = zeros([p.popSize 1]);
 
 for index = 1:p.popSize
-    if size(pop,1) == 1
-        [foil, ~] = pts2ind(pop',p.numEvalPts);
+    if size(pop,2) == 1
+        [foil, ~] = pts2ind(pop,p.numEvalPts);
     else
-        [foil, ~] = pts2ind( pop(index,:)', p.numEvalPts);
+        [foil, ~] = pts2ind( pop(:,index), p.numEvalPts);
     end
     
     % Calculate pairwise error
