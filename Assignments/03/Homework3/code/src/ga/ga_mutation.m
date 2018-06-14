@@ -1,3 +1,3 @@
 function children  = ga_mutation(children, p)
-doMut = (rand(p.popSize,p.nGenes)<p.mutProb);
-children (doMut) =  rand([1 sum(doMut(:))]) - 0.5;
+doMut = (rand(p.nGenes,p.popSize)<p.mutProb);
+children (doMut) =  rand([sum(doMut(:)) 1]) - 0.5;
