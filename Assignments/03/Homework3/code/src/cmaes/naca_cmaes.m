@@ -4,8 +4,8 @@ if nargin < 3
     
     p.task      = task;
     p.nGenes    = 32;
-    p.maxGen    = 500;
-    p.popSize   = 100;
+    p.maxGen    = 150;
+    p.popSize   = 50;
     
     % NACA Parameters
     p.numEvalPts = 256;
@@ -32,7 +32,7 @@ if nargin < 3
     p.cov_mu_factor = (p.cov_mu-p.cov_mu_min)/p.cov_mu_gens;
     
     % Elitism params
-    p.mean_g = rand(1,p.nGenes)-0.5;
+    p.mean_g = rand(p.nGenes,1)-0.5;
     p.mean_fit = feval(p.task,p.mean_g,p);
     
     output = p;
@@ -61,12 +61,11 @@ while iGen <= p.maxGen
     
     % select the p.noOfElites best individuals 
     elite_ids = es_elitism(fitness,p);
-    elite = pop(elite_ids,:);
+    elite = pop(:,elite_ids);
     
     % Updating covariance
     cov_mu = cmaes_rank_mu_update(elite,p,p.mean_g);    
-    cov = (1-p.cov_mu)*cov+p.cov_mu*(1/p.sigma^2)*cov_mu;  
-    
+    cov = (1-p.cov_mu)*cov+p.cov_mu*(1/p.sigma^2)*cov_mu;      
     
     
     % update mean individual from elites 
@@ -80,7 +79,7 @@ while iGen <= p.maxGen
     % Data Gathering
     [fitMax(iGen), iBest] = min(fitness);
     fitMed(iGen)          = median(fitness);
-    best(:,iGen)          = pop(iBest,:);
+    best(:,iGen)          = pop(:,iBest);
         
     % break when converged
     if iGen >= p.maxGen || (iGen>50 &&  mean(fitMed(iGen-50:iGen))< p.accuracy && mean(fitness)<p.accuracy)
@@ -90,12 +89,12 @@ while iGen <= p.maxGen
     iGen = iGen+1;
     time = time+1;
     
-%     if mod(iGen,5) == 0
-%         figure(1)
-%         disp(iGen)
-%         bestIndividual =best(:,iGen-1)';
-%         visualize(bestIndividual, p);
-%     end
+    if mod(iGen,5) == 0
+        figure(1)
+        disp(iGen)
+        bestIndividual =best(:,iGen-1)';
+        visualize(bestIndividual, p);
+    end
     
     
 end
