@@ -4,8 +4,8 @@ if nargin < 3
     
     p.task      = task;
     p.nGenes    = 32;
-    p.maxGen    = 500;
-    p.popSize   = 100;
+    p.maxGen    = 150;
+    p.popSize   = 50;
     
     % NACA Parameters
     p.numEvalPts = 256;
@@ -26,7 +26,7 @@ if nargin < 3
     %p.rho = 1;
 
     % Elitism params
-    p.mean_g = rand(1, p.nGenes)-0.5;
+    p.mean_g = rand(p.nGenes , 1)-0.5;
     p.mean_fit = feval(p.task,p.mean_g,p);
     
     output = p;
@@ -53,7 +53,7 @@ while iGen <= p.maxGen
     
     % select the p.noOfElites best individuals
     elite_ids = es_elitism(fitness,p);
-    elite = pop(elite_ids,:);
+    elite = pop(:,elite_ids);
     
     % update mean individual from elites
     p.mean_g = get_mean(elite,p);
@@ -62,7 +62,7 @@ while iGen <= p.maxGen
     % Data Gathering
     [fitMax(iGen), iBest] = min(fitness); % 1st output is the max value, 2nd the index of that max value    
     fitMed(iGen)          = median(fitness);
-    best(:,iGen)          = pop(iBest,:);
+    best(:,iGen)          = pop(:,iBest);
     
     % break when converged
     if iGen >= p.maxGen || (iGen>50 &&  mean(fitMed(iGen-50:iGen))< p.accuracy && mean(fitness)<p.accuracy)

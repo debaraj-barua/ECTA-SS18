@@ -36,7 +36,7 @@ for iGen = 1:p.maxGen
     %% Initialize population
     % - Initialize a population of random individuals and evaluate them.
     if iGen == 1
-        pop = rand(p.popSize,p.nGenes)-0.5;
+        pop = rand(p.nGenes,p.popSize)-0.5;
         fitness = feval(p.task, pop,p);        
     end
     
@@ -53,8 +53,8 @@ for iGen = 1:p.maxGen
     eliteIds  = ga_elitism(fitness, p);
     
     % Create new population -- Combine new children and elite(s)
-    newPop    = [pop(eliteIds,:); children];
-    pop       = newPop(1:p.popSize,:);  % Keep population size constant
+    newPop    = [pop(:,eliteIds) children];
+    pop       = newPop(:,1:p.popSize);  % Keep population size constant
     
     % Evaluate new population
     fitness   = feval(p.task, pop,p);
@@ -62,7 +62,7 @@ for iGen = 1:p.maxGen
     % Data Gathering
     [fitMax(iGen), iBest] = min(fitness); % 1st output is the max value, 2nd the index of that max value    
     fitMed(iGen)          = median(fitness);
-    best(:,iGen)          = pop(iBest,:);
+    best(:,iGen)          = pop(:,iBest);
     
     % break when converged
     if iGen >= p.maxGen || (iGen>50 &&  mean(fitMed(iGen-50:iGen))< p.accuracy && mean(fitness)<p.accuracy)

@@ -3,7 +3,7 @@ function output = naca_cmaes_ep (task, nacaNum, p)
 if nargin < 3    
     p.task      = task;
     p.nGenes    = 32;
-    p.maxGen    = 150;
+    p.maxGen    = 100;
     p.popSize   = 50;
 
     % NACA Parameters
@@ -17,16 +17,13 @@ if nargin < 3
     % ES params
     % p.rho = 1; 
     p.noOfElites = p.popSize/5;
-    p.weights = (-p.noOfElites:-1)*-1/sum((1:p.noOfElites)); 
-    p.sigma = 0.075;
-    p.updateSigmaTime = 5; %should be multiple of 5    
+    p.weights = (-p.noOfElites:-1)*-1/sum((1:p.noOfElites));     
+    p.sigma = 1;  
 
     % CMAES params
-    p.mu_eff = 1/sum(p.weights.^2);    
-    p.cov_mu = 0.125; %p.mu_eff/p.nGenes^2;    
-    p.cov_mu_min = 0.025;
-    p.cov_mu_gens = 50; %p.maxGen/6;
-    p.cov_mu_factor = (p.cov_mu-p.cov_mu_min)/p.cov_mu_gens;
+    p.mu_eff =  sqrt(1/sum(p.weights.^2));   
+    p.cov_mu = 0.01; %p.mu_eff/p.nGenes^2;    
+   
 
     % EP params
     p.n = p.nGenes;
@@ -48,7 +45,7 @@ fitMed = nan(1,p.maxGen);
 best   = nan(p.nGenes, p.maxGen); 
 iGen = 1;
 cov = eye(p.nGenes);
-P_c = zeros([1 p.nGenes]);
+P_c = zeros([p.nGenes 1]);
 
 while iGen <= p.maxGen
     pop = create_children(p,cov);   
@@ -83,11 +80,14 @@ while iGen <= p.maxGen
     end     
     iGen = iGen+1;
     
-    if mod(iGen,20) == 0
-        figure(1)
-        disp(iGen)
-        bestIndividual =best(:,iGen-1)';
-        visualize(bestIndividual, p);
+%     if mod(iGen,20) == 0
+%         figure(1)
+%         disp(iGen)
+%         bestIndividual =best(:,iGen-1)';
+%         visualize(bestIndividual, p);
+%     end
+    if mod(iGen,10) == 0
+        visualize(p.mean_g',p);
     end
     
 end
