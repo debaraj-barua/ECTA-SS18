@@ -18,11 +18,12 @@
 
 % something NOT relevant to the usage of the package.
 \usepackage{graphicx}
+\usepackage{float}
 \usepackage{url,textcomp}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{18pt}
 \title{ECTA Homework 3\\Shape Matching Problem}
-\author{\color{red}YOUR NAME, \texttt{your.email@h-brs.de}}
+\author{Debaraj Barua (9030412), Md Zahiduzzaman (9030432)}
 % //////////////////////////////////////////////////
 
 \begin{document}
@@ -91,12 +92,40 @@ To be perfectly clear we expect two submissions to LEA:
 	\item Genetic Algorithms are typically represented by a string, this string could take many forms, such as bitsrings or real-valued numbers. What are the advantages and disadvantages of each encoding in this application? How would you convert each into 32 real-valued numbers? How could you perform crossover and mutation in each? Which do you think would be best?
 	\begin{enumerate}
 		\item Bitstring
-		\\\color{red}Your text here\color{black}
+		\\\color{blue}
+		One way to represent the problem will be to represent each estimate for the Y value as the binary representation of the number. 
+		
+		The advantage of such an approach will be ease of mutation of the bit string by bit flips. On creating new individuals in this manner, we would however have to ensure each individual lies within the given range. Another advantage would be that we can avoid round off errors resulting from floating point operations using real valued numbers.
+		
+		Crossover can be implemented as a single point crossover, where we create new individual from the two parts of each parent.
+		
+		Mutation can be implemented by a bitflip according to a mutation probability.
+		
+		\color{black}
 		\item Real-valued
-		\\\color{red}Your text here\color{black}
+		\\\color{blue}
+		\textbf{Representation}:
+		A string of 32 real valued numbers between -0.5 to 0.5 can be used to represent the problem. These 32 numbers together are a representation of a single genome with possible values of the estimates of Y-value against the control points.
+		
+		\textbf{Advantage}: These values can be used to represent the Y position of the 32 control points directly, this makes it easy to check the fitness by comparing with the actual value.
+		
+		\textbf{Disadvantage}: Round off error in floating point operations.
+		
+		 
+		\textbf{Crossover}: Crossover is achieved by taking two parent ids and then getting the mean of the their genomes depending on the crossover probability. This mean value is used to represent a new child genome.  
+		
+		\textbf{Mutation}: It is achieved by generating gene values between -0.5 and 0.5 to replace genes based on the mutation probability.
+		
+		
+		\color{black}
 	\end{enumerate}
 	\item Implement the encoding you think will perform best and plots its median performance over 20 iterations, using 20,000 evaluations.
 	\\\color{red}Your plot here\color{black}
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=1.0\textwidth]{img/ga20-2000.jpg}
+				\caption{Median fitness values over 20 runs with 200 generataion and 100 population size each of a GA for the shape matching problem.}
+			\end{figure}
 
 	\item \textit{***Extra Credit***} Implement both encodings and compare them on matching task for \underline{one} of the shapes. Is one significantly better? Can you explain why?
 	\\\color{red}Your text here $+$ a figure w/significance here\color{black}
@@ -108,20 +137,54 @@ To be perfectly clear we expect two submissions to LEA:
 	\item CMA-ES is an advanced version of ES. As a first step implement a simple ES first. 
 		\begin{itemize}
 			\item In this ES mutation of all parameters should have equal strength which is adjusted by the 1/5th rule.\\(\textit{every N generations change mutation strength: if $>1/5$th of mutations resulted in an better fitness (i.e. a best solution) increase mutation strength, otherwise decrease mutation strength}). Test your implementation on \underline{one} of the shapes.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=1.0\textwidth]{img/es_foil3_single.jpg}
+				\caption{Plot on NACA [9, 7, 3, 5] with ES}
+			\end{figure}
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=1.0\textwidth]{img/es_fitness_foil3_single.jpg}
+				\caption{Fitness plot on NACA [9, 7, 3, 5] with ES}
+			\end{figure}
+			
 			\item Compare to your best GA. Is one significantly better than the other?
-			\\\color{red}Your text here $+$ a figure w/significance here\color{black}
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=1.0\textwidth]{img/ga_es.jpeg}
+			\end{figure}
+			\color{blue}
+				It is observed that the GA does not manage to converge to the global minima even after 20000 evaluations.
+				
+				However, the ES manages to converge to the global minima within 2000-2500 evaluations. Thus it can be seen to be significantly better than the GA.			
+			\color{black}
+			
 		\end{itemize}
 	\item Now program CMA-ES \underline{without evolution paths}.
 	\begin{itemize}
-		\item Compare to your ES results. Is a there a significant improvement?
-		\\\color{red}Your text here $+$ a figure w/significance here\color{black}	
+		\item Compare to your ES results. Is a there a significant improvement?	
 	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{img/es_cmaes.jpeg}
+	\end{figure}
+	\color{blue}
+	It is observed that both the ES and CMAES manages to converge to the global minima, however, the ES is seen to perform slightly better. This may be attributed to the selection of parameters, including the population size and number of generations.			
+	\color{black}
+	
 
 	\item \textit{***Extra Credit***} Now program CMA-ES \underline{with evolution paths}.
 		\begin{itemize}
 		\item Compare to your previous CMA-ES results. Is a there a significant improvement?
-		\\\color{red}Your text here $+$ a figure w/significance here\color{black}
 		\end{itemize}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1.0\textwidth]{img/cmaes_cmaesep.jpeg}
+		\end{figure}
+		\color{blue}
+		CMAES-EP is seen to converge slightly faster than the CMAES. This can be attributed to the fact that the path of evolution adapts the way the step sizes are updated, thus leading to faster convergence.
+		\color{black}
 \end{itemize}
 
 \newpage
@@ -134,6 +197,12 @@ Produce one plot which shows the performance of each algorithm. Run each algorth
 	\item CMA-ES (without evolution paths)
 	\item CMA-ES (with evolution paths)
 \end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{img/20_runs_2000_all.jpg}
+	\caption{Best values across all air foils over 20 runs with 20,000 evaluations each for the GA, ES, CMAES and CMAES EP for the shape matching problem.}
+\end{figure}
 
 
 

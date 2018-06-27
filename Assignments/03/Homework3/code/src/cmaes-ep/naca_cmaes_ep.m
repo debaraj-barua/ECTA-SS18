@@ -3,7 +3,7 @@ function output = naca_cmaes_ep (task, nacaNum, p)
 if nargin < 3    
     p.task      = task;
     p.nGenes    = 32;
-    p.maxGen    = 100;
+    p.maxGen    = 400;
     p.popSize   = 50;
 
     % NACA Parameters
@@ -76,7 +76,7 @@ while iGen <= p.maxGen
     % break when converged
     if iGen >= p.maxGen || (iGen>50 &&  mean(fitMed(iGen-50:iGen))< p.accuracy && mean(fitness)<p.accuracy)
         convergedGen = iGen;
-        break;
+        %break;
     end     
     iGen = iGen+1;
     
@@ -86,9 +86,9 @@ while iGen <= p.maxGen
 %         bestIndividual =best(:,iGen-1)';
 %         visualize(bestIndividual, p);
 %     end
-    if mod(iGen,10) == 0
-        visualize(p.mean_g',p);
-    end
+%     if mod(iGen,10) == 0
+%         visualize(p.mean_g',p);
+%     end
     
 end
 output.fitMax = fitMax;

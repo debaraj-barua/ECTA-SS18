@@ -7,8 +7,8 @@ disp('start')
 output = naca_ga('naca_fitness',Nacanum,p);
 toc
 %% save
-save op/100_500_ga_p.mat p
-save op/100_500_ga_output.mat output
+save op/100_200_ga_p.mat p
+save op/100_200_ga_output.mat output
 %% Visualization of GA
 bestIndividual = output.best(:,output.convergedGen)';
 %%

@@ -4,8 +4,8 @@ if nargin < 3
     
     p.task      = task;
     p.nGenes    = 32;
-    p.maxGen    = 150;
-    p.popSize   = 50;
+    p.maxGen    = 2000;
+    p.popSize   = 10;
     
     % NACA Parameters
     p.numEvalPts = 256;
@@ -84,17 +84,17 @@ while iGen <= p.maxGen
     % break when converged
     if iGen >= p.maxGen || (iGen>50 &&  mean(fitMed(iGen-50:iGen))< p.accuracy && mean(fitness)<p.accuracy)
         convergedGen = iGen;
-        break;
+        %break;
     end
     iGen = iGen+1;
     time = time+1;
     
-    if mod(iGen,5) == 0
-        figure(1)
-        disp(iGen)
-        bestIndividual =best(:,iGen-1)';
-        visualize(bestIndividual, p);
-    end
+%     if mod(iGen,5) == 0
+%         figure(1)
+%         disp(iGen)
+%         bestIndividual =best(:,iGen-1)';
+%         visualize(bestIndividual, p);
+%     end
     
     
 end
