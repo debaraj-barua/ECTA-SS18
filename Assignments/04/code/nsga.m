@@ -27,6 +27,8 @@ for iGen = 1:p.maxGen
     parentIds = selection(pop(:, p.nGenes + p.nObj + 1: end), p); % Returns indices of parents
     
     % Crossover -- Returns children of selected parents
+    current_pop = pop(:,:); % used for plotting 
+    
     pop = pop(:, 1:p.nGenes);
     children  = crossover(pop, parentIds, p);
     
@@ -52,7 +54,19 @@ for iGen = 1:p.maxGen
         set(gcf, 'Position', get(0, 'Screensize'));
     end
     
-    displayFronts(pop(:, p.nGenes + p.nObj + 1), pop(:, p.nGenes + 1: p.nGenes + p.nObj), pop(:, 1:p.nGenes));
+    marker_colors = nan(size(current_pop,1), 3);
+   
+    for i = 1: size(current_pop,1)
+        if contains_ind(pop, current_pop(i,:), p)
+            marker_colors(i,:) = [0 1 0];
+        else
+            marker_colors(i,:) = [1 0 0];
+        end
+    end
+    
+    displayFronts(current_pop(:, p.nGenes + p.nObj + 1),...
+        current_pop(:, p.nGenes + 1: p.nGenes + p.nObj), current_pop(:, 1:p.nGenes),...
+        marker_colors);
 
     if iGen == 1
         gif('plot.gif', 'DelayTime', 10.0/p.maxGen, 'frame',gcf);
