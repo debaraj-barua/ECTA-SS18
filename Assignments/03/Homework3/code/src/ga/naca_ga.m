@@ -3,7 +3,7 @@ function output = naca_ga(task,nacaNum, p)
 if nargin<3     
     p.task      = task;
     p.nGenes    = 32;
-    p.maxGen    = 500;
+    p.maxGen    = 200;
     p.popSize   = 100;
     p.sp        = 3;
     p.crossProb = 0.8;
@@ -67,7 +67,7 @@ for iGen = 1:p.maxGen
     % break when converged
     if iGen >= p.maxGen || (iGen>50 &&  mean(fitMed(iGen-50:iGen))< p.accuracy && mean(fitness)<p.accuracy)
         convergedGen = iGen;
-        break;
+        %break;
     end 
     
 end
