@@ -1,6 +1,6 @@
 %% Display Fronts
 % 
-function fig = displayFronts(front, fitness, pop)
+function fig = displayFronts(front, fitness, pop, marker_colors)
 %displayFronts - Displays pareto fronts in leading ones/trailing zeros
 % 
 %
@@ -29,6 +29,14 @@ for iFront=1:nFront
     h = plot(fitness((front==iFront),1),fitness((front==iFront),2));
     set(h,'LineStyle','--','Color',colors(iFront,:),'Marker','o'...
          ,'MarkerFaceColor', colors(iFront,:),'MarkerSize',25)
+    hold on;
+    
+    if iFront ==1
+        scatter(fitness((front==iFront),1),fitness((front==iFront),2),100, marker_colors((front==iFront),:), 'O', 'filled');
+    else
+        scatter(fitness((front==iFront),1),fitness((front==iFront),2),100, marker_colors((front==iFront),:), 'O');
+    end
+    
     hold on;
     if iFront ==1
         text(fitness((front==iFront),1)+0.35,...
