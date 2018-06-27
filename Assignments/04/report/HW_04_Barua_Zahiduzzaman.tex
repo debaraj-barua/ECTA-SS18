@@ -22,20 +22,13 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{18pt}
 \title{ECTA Homework 4\\Multiobjective Optimization with the\\Non-dominated Sorting Genetic Algorithm II}
-\author{\color{red}YOUR NAME, \texttt{your.email@h-brs.de}}
+\author{\color{blue}Debaraj Barua (9030412), Md Zahiduzzaman (9030432)}
 % //////////////////////////////////////////////////
 
 \begin{document}
 
 \maketitle
 
-\begin{center}
-	\begin{minipage}{1\linewidth}
-		\begin{center}
-			\includegraphics[width=\textwidth]{xkcd}
-		\end{center}
-	\end{minipage}
-\end{center}
 
 \newpage
 
@@ -85,7 +78,9 @@ To be perfectly clear we expect two submissions to LEA:
 		\end{itemize}
 		\item Fronts can be visualized with the code snippets attached\\ (\mcode{displayFronts.m})
 	\end{itemize}
-	\item (5pts) At each iteration mark the individuals which carry on to the next population, and which do not (you will have to code this yourself).
+	{\color{blue} The visualization is shown in plot.gif and submitted with the assignment}
+	\item (5pts) At each iteration mark the individuals which carry on to the next population, and which do not (you will have to code this yourself).\\
+	{\color{blue} Individuals carried to the next population is marked as green circle and others are marked as red circle. The individuals at the first front are marked as filled circle}
 \end{itemize}
 
 \newpage
@@ -93,14 +88,38 @@ To be perfectly clear we expect two submissions to LEA:
 \begin{itemize}
 	\item (10pts) Compare the sort used by NSGA-II with a variety of population sizes. How long does 100 generations take with each approach when using a population size of:
 	\begin{enumerate}
-		\item 10:
-		\item 100:
-		\item 1000:
+		\item 10: {\color{blue}25.6265 seconds, does not find any of the pareto optimal solution.}
+		\item 100: {\color{blue}50.1688 seconds, finds all 21 pareto optimal solutions.}
+		\item 1000: {\color{blue} 1828.7204 seconds, The population size is too high because with genome of length 20 there can be only 210 unique solutions ($\frac{N \times (N+1)}{2}$) and population size of larger then this is not helpful.}
 	\end{enumerate}
-	\item (5pts) Plot the end result of a single run with [100 pop and 100 gen] and [10 pop and 1000 gen]. Describe the difference between the end results. Which is preferable?
-	\item (5pts) Imagine you were to replace the objective of ``leading zeros'' with ``largest binary number''. Predict the result, and give your reasoning.
-	\item (5pts) Imagine you were to add a third objective: ``non-consecutive ones and zeros'' (ones not touching ones and zeros not touching zeros, e.g. 0101 and 1010 are the most optimal 4 bit solutions). How would you adjust the hyperparameters to get a satisfactory result?
-	\item (5pts) In many GAs and ESs populations must be ranked, but no special methods are used. Why is a faster sort in MOO so important?
+	
+	
+	\item (5pts) Plot the end result of a single run with [100 pop and 100 gen] and [10 pop and 1000 gen]. Describe the difference between the end results. Which is preferable? \\
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\linewidth]{img/p_100_g_100}
+		\caption{pop 100, gen 100, takes 53.5034 seconds}
+		\label{fig:p_100_g_100}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\linewidth]{img/p_10_g_1000}
+		\caption{pop 10, gen 1000, takes 233.6489 seconds}
+		\label{fig:p_10_g_1000}
+	\end{figure}
+	
+
+	
+	{\color{blue}The end result shows that due to the small population size in case of population size 10, it does not find all 21 pareto optimal solutions and it takes longer to run. So, pop 100 and gen 100 is better.}
+	
+	\item (5pts) Imagine you were to replace the objective of ``leading zeros'' with ``largest binary number''. Predict the result, and give your reasoning.\\
+	{\color{blue}In this case there will be only one pareto optimal solution which is a bit string of 1's of length 20. In this case both the objectives will have value 20 and no other individual can dominate this individual.}
+	\item (5pts) Imagine you were to add a third objective: ``non-consecutive ones and zeros'' (ones not touching ones and zeros not touching zeros, e.g. 0101 and 1010 are the most optimal 4 bit solutions). How would you adjust the hyperparameters to get a satisfactory result?\\
+	{\color{red}Will answer after extra credit task}
+	\item (5pts) In many GAs and ESs populations must be ranked, but no special methods are used. Why is a faster sort in MOO so important?\\
+	{\color{blue}A faster sort is important because of the the number of comparison performed and less comparison requires less time and vice versa. The approach we followed requires $\mathcal{O}(M N^2)$ whereas a naive implementation is also possible which is easier to implement but requires $\mathcal{O}(M N^3)$ comparison operations. Here $M$ is number of objectives and $N$ is the population size. It makes a huge difference for large population size.}
 \end{itemize}
 
 \newpage
