@@ -6,6 +6,7 @@
 
 % for checklist
 \usepackage{enumitem,amssymb}
+\usepackage{longtable}
 \newlist{todolist}{itemize}{2}
 \setlist[todolist]{label=$\square$}
 \usepackage{pifont}
@@ -94,8 +95,15 @@ To be perfectly clear we expect two submissions to LEA:
 	\end{enumerate}
 	
 	
-	\item (5pts) Plot the end result of a single run with [100 pop and 100 gen] and [10 pop and 1000 gen]. Describe the difference between the end results. Which is preferable? \\
-
+	\item (5pts) Plot the end result of a single run with [100 pop and 100 gen] and [10 pop and 1000 gen]. Describe the difference between the end results. Which is preferable? \\ \\
+	{\color{blue} \textbf{Legend for graphs:} 
+		\begin{itemize}
+			\item The levels start at 1 for the right most points (in blue) and increases towards left.
+			\item Any filled inner circle represents the individuals in first level.
+			\item A green empty inner circle represents the  individuals carried to the next population.
+			\item A red empty inner circle represents individuals not moving to the next generation.
+		\end{itemize}
+	}
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.7\linewidth]{img/p_100_g_100}
@@ -115,9 +123,20 @@ To be perfectly clear we expect two submissions to LEA:
 	{\color{blue}The end result shows that due to the small population size in case of population size 10, it does not find all 21 pareto optimal solutions and it takes longer to run. So, pop 100 and gen 100 is better.}
 	
 	\item (5pts) Imagine you were to replace the objective of ``leading zeros'' with ``largest binary number''. Predict the result, and give your reasoning.\\
-	{\color{blue}In this case there will be only one pareto optimal solution which is a bit string of 1's of length 20. In this case both the objectives will have value 20 and no other individual can dominate this individual.}
+	{\color{blue} The highest binary number in this range is $2^{20}-1$, this can be reached by having twenty "1"s. This solution satisfies both the conditions of maximizing trailing ones and getting the largest binary number. Thus, we can get only one pareto optimal solution.}
 	\item (5pts) Imagine you were to add a third objective: ``non-consecutive ones and zeros'' (ones not touching ones and zeros not touching zeros, e.g. 0101 and 1010 are the most optimal 4 bit solutions). How would you adjust the hyperparameters to get a satisfactory result?\\
-	{\color{red}Will answer after extra credit task}
+	{\color{blue}	
+	The search space for this problem will increase as we have one more objective to fulfill. As such, we would, intuitively need to increase the generation and population size.
+		
+	To select the hyper parameters for the modified implementation, we run the process multiple times for different combinations of population size and generations.
+	\begin{itemize}
+		\item For 200 population and 100 generation, 116 non-dominated solutions are found.
+		\item For 300 population and 100 generation, 115 non-dominated solutions are found.
+		\item For 200 population and 200 generation, 120 non-dominated solutions are found.
+		\item For 200 population and 300 generation, 120 non-dominated solutions are found.
+	\end{itemize}
+	We observed that the combination of 200 population and 200 generation gives the best result.
+	}
 	\item (5pts) In many GAs and ESs populations must be ranked, but no special methods are used. Why is a faster sort in MOO so important?\\
 	{\color{blue}A faster sort is important because of the the number of comparison performed and less comparison requires less time and vice versa. The approach we followed requires $\mathcal{O}(M N^2)$ whereas a naive implementation is also possible which is easier to implement but requires $\mathcal{O}(M N^3)$ comparison operations. Here $M$ is number of objectives and $N$ is the population size. It makes a huge difference for large population size.}
 \end{itemize}
@@ -126,10 +145,38 @@ To be perfectly clear we expect two submissions to LEA:
 \subsection{** Extra Credit ** (+ 10pts in examination)}
 Implement the third objective ``non-consecutive ones and zeros''
 \begin{enumerate}
-	\item How many non-dominated solutions are possible? (Hint: start with a smaller length and test)
+	\item How many non-dominated solutions are possible? (Hint: start with a smaller length and test)\\ \\
+	{\color{blue}Maximum 120 non-dominated solutions have been found for 200 generation and 200 population. }
 	\item What changes did you make to the algorithm and hyperparameters to get a good result?
+	{\color{blue}
+		\begin{itemize}
+			\item The hyper parameters have been updated to get a better result. \item The population size and generation was selected as 200 each.
+		\end{itemize}
+	}
 	\item List the solutions in your 1st front. Are they all Pareto optimal? How complete is your front (in percentage, based on $\#1$)
-	\item Plot the end result in 3D. (Use \mcode{plot3} or \mcode{scatter3})
+	\input{table_non_consecutive}
+	{\color{blue}\\\\
+		We found 120 solutions in the first frame which are all Pareto optimal. 
+		A sample of 10 solutions have been shown above, the remaining solutions have been provided in a mat file (first\_frame.mat).
+	}
+	\item Plot the end result in 3D. (Use \mcode{plot3} or \mcode{scatter3}) \\ \\ 
+	{\color{blue} \textbf{Legend for 3D graph:} 
+		\begin{itemize}
+			\item The levels start at 1 for the top most points (in blue) and increases towards bottom.
+			\item Any filled inner circle represents the individuals in first level.
+			\item A green empty inner circle represents the  individuals carried to the next population.
+			\item A red empty inner circle represents individuals not moving to the next generation.
+		\end{itemize}
+	}
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.99\textwidth]{resource/output.png}
+		\caption{3D plot for problem including the third objective.}
+		\end{figure}
+	{\color{blue}
+		
+	}
 \end{enumerate}
 
 
