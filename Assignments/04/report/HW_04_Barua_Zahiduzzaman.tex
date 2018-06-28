@@ -151,13 +151,15 @@ Implement the third objective ``non-consecutive ones and zeros''
 	{\color{blue}
 		\begin{itemize}
 			\item The hyper parameters have been updated to get a better result. \item The population size and generation was selected as 200 each.
+			\item We changed only the function that returns objective values for an individual. Hence, the function returns three values instead of two for each individual in the population.
+			\item The calculation of levels and crowding distance did not require any change because our original algorithm was implemented in a generic way and the number of objectives is parameterized and levels and crowding distances are calculated accordingly.
 		\end{itemize}
 	}
 	\item List the solutions in your 1st front. Are they all Pareto optimal? How complete is your front (in percentage, based on $\#1$)
 	\input{table_non_consecutive}
 	{\color{blue}\\\\
-		We found 120 solutions in the first frame which are all Pareto optimal. 
-		A sample of 10 solutions have been shown above, the remaining solutions have been provided in a mat file (first\_frame.mat).
+		We found 120 solutions in the first front which are all Pareto optimal. 
+		A sample of 10 solutions have been shown above, the remaining solutions have been provided in a mat file (first\_front.mat).
 	}
 	\item Plot the end result in 3D. (Use \mcode{plot3} or \mcode{scatter3}) \\ \\ 
 	{\color{blue} \textbf{Legend for 3D graph:} 
