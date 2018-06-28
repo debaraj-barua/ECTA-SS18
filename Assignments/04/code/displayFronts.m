@@ -26,25 +26,27 @@ popSize= size(pop,1);
 hold off;
 nFront = max(front); colors = parula(nFront);
 for iFront=1:nFront
-    h = plot(fitness((front==iFront),1),fitness((front==iFront),2));
+    h = plot3(fitness((front==iFront),1),fitness((front==iFront),2), fitness((front==iFront),3));
     set(h,'LineStyle','--','Color',colors(iFront,:),'Marker','o'...
          ,'MarkerFaceColor', colors(iFront,:),'MarkerSize',25)
     hold on;
     
     if iFront ==1
-        scatter(fitness((front==iFront),1),fitness((front==iFront),2),100, marker_colors((front==iFront),:), 'O', 'filled');
+        scatter3(fitness((front==iFront),1),fitness((front==iFront),2),fitness((front==iFront),3),...
+            100, marker_colors((front==iFront),:), 'O', 'filled');
     else
-        scatter(fitness((front==iFront),1),fitness((front==iFront),2),100, marker_colors((front==iFront),:), 'O');
+        scatter3(fitness((front==iFront),1),fitness((front==iFront),2),fitness((front==iFront),3),...
+            100, marker_colors((front==iFront),:), 'O');
     end
     
-    hold on;
-    if iFront ==1
-        text(fitness((front==iFront),1)+0.35,...
-            fitness((front==iFront),2)-(0.25*~mod(iFront,2)),...
-            num2str(pop( (front==iFront),:)))
-    end
+%     hold on;
+%     if iFront ==1
+%         text(fitness((front==iFront),1)+0.35,...
+%             fitness((front==iFront),2)-(0.25*~mod(iFront,2)),...
+%             num2str(pop( (front==iFront),:)))
+%     end
 end
-xlabel('Leading Zeros');ylabel('Trailing Ones');
+xlabel('Leading Zeros');ylabel('Trailing Ones');zlabel('Non-consecutive ones and zeros');
 axis([-0.5 nGenes+0.5 -0.5 nGenes+0.5]); hold off;
 title('Solutions and Fronts');
 grid on;
