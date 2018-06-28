@@ -1,10 +1,10 @@
 function output = nsga(p)
     if nargin<1
-        p.nObj         = 2;
-        p.obj_function = 'objective2';
+        p.nObj         = 3;
+        p.obj_function = 'objective3';
         p.nGenes       = 20;
-        p.maxGen       = 100;
-        p.popSize      = 100;
+        p.maxGen       = 200;
+        p.popSize      = 200;
         p.sp           = 2;
         p.crossProb    = 0.8;
         p.mutProb      = 1/p.nGenes;
