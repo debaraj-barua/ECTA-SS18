@@ -15,11 +15,12 @@ if nargin<4
     return;
 end
 
-fit = nan(1,p.maxGen);         % Record the median  fitness
+%fit = nan(1,p.maxGen);         % Record the median  fitness
 best = 0;
 best_gen = 0;
 best_wtMatrix = nan(p.nNode ,p.nNode);
 best_pop = nan(p.nNode ,p.nNode,p.popSize);
+neval = 0;
 
 %% Initialization
 
@@ -58,7 +59,7 @@ while(iGen<=p.maxGen)
     while(true)
         % get the idx of hidden neuron to pick from each individual in the pop
         %neuron_idx=randi([p.nInputs+1 p.nInputs+p.nHidden],[p.popSize 1]); 
-        
+        neval=neval+1;
         neuron_idx=randi([1 p.nNode],[p.popSize 1]); 
         for i = 1:p.popSize
             idx = neuron_idx(i);
@@ -69,8 +70,8 @@ while(iGen<=p.maxGen)
             
         end
 
-        %fitness = getFitness(wtMatrix,p);
-        fitness = getFitnessSingle(wtMatrix,p);
+        fitness = getFitness(wtMatrix,p);
+        %fitness = getFitnessSingle(wtMatrix,p);
         if (fitness>best)
             best = fitness;
             %best_gen = iGen;
@@ -94,7 +95,7 @@ while(iGen<=p.maxGen)
             break;
         end
     end
-    fit(:,iGen) = fitness;
+    fit(:,neval) = fitness;
     disp(iGen)
     %disp(fitness)
     
@@ -104,6 +105,7 @@ while(iGen<=p.maxGen)
         output.fitnessGen       = fit;
         output.best_wtMatrix    = best_wtMatrix;
         output.best             = best;
+        output.neval            = neval;
         return;
     end
     %% Recombination            
@@ -136,3 +138,4 @@ output.weightMatrix     = pop_wtMatrix;
 output.fitnessGen       = fit;
 output.best_wtMatrix    = best_wtMatrix;
 output.best             = best;
+output.neval            = neval;

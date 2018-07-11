@@ -18,7 +18,7 @@ for step=1:totalSteps
     onTrack = abs(state(1)) < 2.16;
     notFast = abs(state(2)) < 1.35;
     pole1Up = abs(state(3)) < pi/2;
-    pole2Up = true;%abs(state(5)) < pi/2;
+    pole2Up = abs(state(5)) < pi/2;
     failureConditions = ~[onTrack notFast pole1Up pole2Up];
     if any(failureConditions)   
         fitness = step; break;
@@ -30,16 +30,16 @@ for step=1:totalSteps
         % use a random number between 0 and 1. Put your ANN code here. 
         % Output should be between -1 (full force left) and 1 (full force right)
         output = 2*(rand(1)-0.5);
-        action = output*p.simParams.force; % Scale to full force
+        action = output*10; % Scale to full force
         
         %% SIMULATE RESULT
         % Take action and return new state:
         state = cart_pole2( state, action );        
         
         %% Visualize result (optional and slow, don't use all the time!)
-        %clf
+        clf
         cpvisual(fig, 1, state(1:4), [-3 3 0 2], action );         % Pole 1
-        %cpvisual(fig, 0.5, state([1 2 5 6]), [-3 3 0 2], action );% Pole 2
+        cpvisual(fig, 0.5, state([1 2 5 6]), [-3 3 0 2], action ); % Pole 2
         pause(0.02);
         
     end

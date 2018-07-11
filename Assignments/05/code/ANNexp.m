@@ -28,7 +28,7 @@ p = poleBalanceGa(nHidden,nInputs);
 output2PolNv = poleBalanceGa(nHidden,nInputs, p);
 %% Show plot for the fitness
 fig = figure(1);
-plot([output.fitMax; output.fitMed]','LineWidth',3);
+plot([output1Pol.fitMax; output1Pol.fitMed]','LineWidth',3);
 legend('Max Fitness','Median Fitness');
 xlabel('Generations'); ylabel('Fitness'); set(gca,'FontSize',16);
 title('Performance')

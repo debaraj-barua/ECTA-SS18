@@ -13,7 +13,7 @@ for i = 1:size(pop, 1)
         pole2Up = abs(state(5)) < pi/2;  % Pole #2 Balanced
     end
     nSample = 1;
-    p.simParams.force = 10;
+    maxForce = 10;
     totalSteps = 1000;
     for step=1:totalSteps
         %% Check that all states are legal
@@ -67,7 +67,7 @@ for i = 1:size(pop, 1)
             end
 
             output = nodeAct(end);
-            action = output*p.simParams.force; % Scale to full force
+            action = output*maxForce; % Scale to full force
 
             %% SIMULATE RESULT
             % Take action and return new state:
